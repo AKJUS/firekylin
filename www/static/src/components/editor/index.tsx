@@ -182,12 +182,13 @@ class MarkDownEditor extends React.Component<MdEditorProps, any> {
       E: this._inlineCodeText,
       G: this._pictureText,
       H: this._headerText,
-      M: this._insertMore,
+      M: this._inlineFormulaText,
       R: this._insertHr
     };
 
     let ctrlShiftShortcuts = {
       E: this._codeText,
+      M: this._formulaText,
       '7': this._listOlText,
       '8': this._listUlText
     };
@@ -389,6 +390,8 @@ class MarkDownEditor extends React.Component<MdEditorProps, any> {
         <li className="tb-btn"><a title="代码段(Ctrl + Shift + E)" onClick={() => this._codeText()} className="editor-toolbar">{this._svgIcon(icons.code)}</a></li>
         <li className="tb-btn"><a title="图片(Ctrl + G)" onClick={() => this._pictureText()} className="editor-toolbar">{this._svgIcon(icons.img)}</a></li>
         <li className="tb-btn"><a title="键盘按键" onClick={() => this._kbdText()} className="editor-toolbar">{this._svgIcon(icons.kbd)}</a></li>
+        <li className="tb-btn"><a title="行内公式(Ctrl + M)" onClick={() => this._inlineFormulaText()} className="editor-toolbar">{this._svgIcon(icons.inlineFormula)}</a></li>
+        <li className="tb-btn"><a title="块级公式(Ctrl + Shift + M)" onClick={() => this._formulaText()} className="editor-toolbar">{this._svgIcon(icons.formula)}</a></li>
         <li className="tb-btn">
           <Dropdown menu={{ items: this._alertMenuItems() }} trigger={['hover']}>
             <a title="提示框" className="editor-toolbar">{this._svgIcon(icons.alert)}</a>
@@ -400,7 +403,7 @@ class MarkDownEditor extends React.Component<MdEditorProps, any> {
         <li className="tb-btn"><a title="标题(Ctrl + H)" onClick={() => this._headerText()} className="editor-toolbar">{this._svgIcon(icons.title)}</a></li>
         <li className="tb-btn spliter"/>
         <li className="tb-btn"><a title="分割线(Ctrl + R)" onClick={() => this._insertHr()} className="editor-toolbar">{this._svgIcon(icons.hr)}</a></li>
-        <li className="tb-btn"><a title="插入 more 标签(Ctrl + M)" onClick={() => this._insertMore()} className="editor-toolbar">{this._svgIcon(icons.more)}</a></li>
+        <li className="tb-btn"><a title="插入 more 标签" onClick={() => this._insertMore()} className="editor-toolbar">{this._svgIcon(icons.more)}</a></li>
         {this._getExternalBtn()}
       </ul>
     );
@@ -587,6 +590,14 @@ class MarkDownEditor extends React.Component<MdEditorProps, any> {
 
   _kbdText () {
     this._preInputText('<kbd>键盘按键</kbd>', 5, 9);
+  }
+
+  _inlineFormulaText () {
+    this._preInputText('`$行内公式$`', 2, 6);
+  }
+
+  _formulaText () {
+    this._preInputText('```math\n公式\n```', 8, 10);
   }
 
   _alertMenuItems () {
