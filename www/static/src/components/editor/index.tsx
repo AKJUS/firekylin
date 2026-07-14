@@ -564,7 +564,17 @@ class MarkDownEditor extends React.Component<MdEditorProps, any> {
   }
 
   _codeText () {
-    this._preInputText('```\ncode block\n```', 4, 14);
+    const textarea = this.textControl as HTMLTextAreaElement;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const hasSelection = start !== end;
+    if (hasSelection) {
+      // 选中文字时：选中内容作为代码块，光标移动到语言标识位置
+      this._preInputText('```\ncode block\n```', 4, 14, { selectAfter: [3, 3] });
+    } else {
+      // 未选中文字时：插入后选中text
+      this._preInputText('```\ncode block\n```', 4, 14);
+    }
   }
 
   _linkModal() {
