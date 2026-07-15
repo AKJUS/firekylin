@@ -6,6 +6,7 @@ const hljs = require('highlight.js');
 const markedMathjaxExtension = require('../../common/service/marked-mathjax-extension');
 const markedTocExtension = require('../../common/service/marked-toc-extension');
 const markedImgonlyExtension = require('../../common/service/marked-imgonly-extension');
+const markedMermaidExtension = require('../../common/service/marked-mermaid-extension');
 const Base = require('./base');
 
 module.exports = class extends Base {
@@ -246,6 +247,8 @@ module.exports = class extends Base {
     }
     // 纯图片段落标记：在渲染阶段为仅含图片的段落添加class
     extensions.push(markedImgonlyExtension());
+    // mermaid代码块改写，便于前端渲染
+    extensions.push(markedMermaidExtension());
 
     // markdown渲染
     const marked = new Marked(...extensions);
