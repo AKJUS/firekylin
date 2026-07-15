@@ -192,7 +192,7 @@ module.exports = class extends think.Model {
    */
   async getPostArchive() {
     const where = this.getWhereCondition();
-    const data = await this.field('id,title,pathname,create_time')
+    const data = await this.field('id,title,pathname,create_time,options')
       .order('create_time DESC')
       .setRelation(false)
       .where(where)
@@ -219,7 +219,7 @@ module.exports = class extends think.Model {
     return this.where(where)
       .page(page, await this.getPostsListSize())
       .setRelation(false)
-      .field('title,pathname,summary,create_time')
+      .field('title,pathname,summary,create_time,options')
       .order('create_time DESC')
       .countSelect(false);
   }

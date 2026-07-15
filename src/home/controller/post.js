@@ -201,7 +201,17 @@ module.exports = class extends Base {
   async archiveAction() {
     const model = this.model('post');
     const data = await model.getPostArchive();
-    for (const i in data) { data[i].map(post => post.pathname = encodeURIComponent(post.pathname)) }
+    for (const i in data) {
+      data[i].map(post => {
+        post.pathname = encodeURIComponent(post.pathname);
+        try {
+          post.options = JSON.parse(post.options) || {};
+        } catch (e) {
+          post.options = {};
+        }
+        return post;
+      });
+    }
     this.assign('list', data);
     return this.displayView('archive');
   }
@@ -225,6 +235,11 @@ module.exports = class extends Base {
       const searchResult = await postModel.getPostSearch(keyword, this.get('page'));
       searchResult.data = searchResult.data.map(item => {
         item.pathname = encodeURIComponent(item.pathname);
+        try {
+          item.options = JSON.parse(item.options) || {};
+        } catch (e) {
+          item.options = {};
+        }
         return item;
       });
       this.assign('searchData', searchResult);
