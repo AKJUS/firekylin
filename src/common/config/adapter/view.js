@@ -24,6 +24,7 @@ module.exports = {
       env.addGlobal('think', think);
       env.addGlobal('JSON', JSON);
       env.addGlobal('eval', eval);
+      env.addGlobal('Math', Math);
 
       // 读取 Vite manifest，注入资源路径映射
       const manifestPath = path.join(think.ROOT_PATH, 'www/static/dist/.vite/manifest.json');
