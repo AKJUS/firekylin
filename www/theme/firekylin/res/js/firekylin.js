@@ -439,7 +439,7 @@
    */
   hljs.init = function() {
     [].slice.call(hljs.$code).forEach(function(elem, i) {
-      var lines = elem.innerHTML.trim().split(/[\r\n]+/);
+      var lines = elem.innerHTML.trim().replace(/\r\n/g, '\n').split('\n');
       var html = lines.map(function(item, index) {
         return '<li><span class="line-num" data-line="' + (index + 1) + '"></span>' + item + '</li>';
       }).join('');
