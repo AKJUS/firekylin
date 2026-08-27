@@ -522,7 +522,7 @@ class MarkDownEditor extends React.Component<MdEditorProps, any> {
   }
 
   _italicText () {
-    this._preInputText('_斜体文字_', 1, 5);
+    this._preInputText('*斜体文字*', 1, 5);
   }
 
   _strikethroughText () {
